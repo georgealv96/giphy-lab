@@ -1,26 +1,30 @@
 import { useState } from 'react'
 
-export default function SearchForGif() {
+export default function SearchForGif(props) {
   // setting up the gif form state
   const [gifFormState, setGifFormState] = useState('')
 
   // when the user makes a change in the search bar
   function handleChange(e) {
-    console.log(gifFormState)
     setGifFormState(e.target.value)
   }
 
   // when the user hits the submit button
   function handleSubmit(e) {
     e.preventDefault()
-
-    getGif(gifFormState)
+    console.log(gifFormState)
+    props.getGif(gifFormState)
   }
 
   return (
-    <form>
-      <input type="text" onChange={handleChange} value={gifFormState} />
-      <button onSubmit={handleSubmit}>SEARCH</button>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        onChange={handleChange}
+        value={gifFormState}
+        placeholder="Search GIF"
+      />
+      <button>SEARCH</button>
     </form>
   )
 }
