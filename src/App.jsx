@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <h1>Discover Cool GIFS!</h1>
-      <SearchForGif />
+      <SearchForGif getGif={getGif} />
     </>
   )
 }

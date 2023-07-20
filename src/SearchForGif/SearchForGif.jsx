@@ -6,13 +6,21 @@ export default function SearchForGif() {
 
   // when the user makes a change in the search bar
   function handleChange(e) {
-    console.log(e.target.value)
+    console.log(gifFormState)
     setGifFormState(e.target.value)
   }
+
+  // when the user hits the submit button
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    getGif(gifFormState)
+  }
+
   return (
     <form>
       <input type="text" onChange={handleChange} value={gifFormState} />
-      <button>SEARCH</button>
+      <button onSubmit={handleSubmit}>SEARCH</button>
     </form>
   )
 }
