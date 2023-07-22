@@ -12,7 +12,7 @@ export default function SearchForGif(props) {
   // when the user hits the submit button
   function handleSubmit(e) {
     e.preventDefault()
-    props.getGif(gifFormState)
+    props.getGif(gifFormState, true)
     setGifFormState('')
   }
 
