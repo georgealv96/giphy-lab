@@ -1,6 +1,6 @@
 import SearchForGif from './SearchForGif/SearchForGif'
 import ShowGif from './ShowGif/ShowGif'
-import FavoritesList from './FavoritesList/FavoritesList'
+import FavoriteList from './FavoriteList/FavoriteList'
 import AddFavorite from './AddFavorite/AddFavorite'
 import { useState, useEffect } from 'react'
 import { Route, Link, Routes } from 'react-router-dom'
@@ -11,6 +11,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [gif, setGif] = useState('')
   const [searchButton, setSearchButton] = useState(false)
+  const [favoriteList, setFavoriteList] = useState([])
 
   useEffect(() => {
     console.log('use effect running')
@@ -39,6 +40,10 @@ function App() {
     setSearchButton(val)
   }
 
+  function getFavoriteList(list) {
+    setFavoriteList(list)
+  }
+
   return (
     <>
       <nav>
@@ -55,13 +60,16 @@ function App() {
               {gif ? (
                 <>
                   <ShowGif gif={gif} />
-                  <AddFavorite />
+                  <AddFavorite gif={gif} getFavoriteList={getFavoriteList} />
                 </>
               ) : null}
             </>
           }
         />
-        <Route path="/favorites" element={<FavoritesList />} />
+        <Route
+          path="/favorites"
+          element={<FavoriteList favoriteList={favoriteList} />}
+        />
       </Routes>
     </>
   )
