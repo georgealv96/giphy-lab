@@ -1,15 +1,16 @@
 import SearchForGif from './SearchForGif/SearchForGif'
 import ShowGif from './ShowGif/ShowGif'
+import FavoritesList from './FavoritesList/FavoritesList'
+import AddFavorite from './AddFavorite/AddFavorite'
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Route, Link, Routes } from 'react-router-dom'
 import './App.css'
 
 function App() {
   // setting a state for whatever the user searches
   const [searchTerm, setSearchTerm] = useState('')
   const [gif, setGif] = useState('')
-  const [button, setButton] = useState(false)
+  const [searchButton, setSearchButton] = useState(false)
 
   useEffect(() => {
     console.log('use effect running')
@@ -30,23 +31,38 @@ function App() {
     }
 
     getGifInfo()
-    setButton(false)
-  }, [button])
+    setSearchButton(false)
+  }, [searchButton])
 
   function getGif(searchedGif, val) {
     setSearchTerm(searchedGif)
-    setButton(val)
+    setSearchButton(val)
   }
 
   return (
     <>
       <nav>
-        <p>Home</p>
-        <p>Favorites</p>
+        <Link to="/">Home</Link>
+        <Link to="/favorites">Favorites</Link>
       </nav>
       <h1>Discover Cool GIFS!</h1>
-      <SearchForGif getGif={getGif} />
-      {gif ? <ShowGif gif={gif} /> : null}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <SearchForGif getGif={getGif} />
+              {gif ? (
+                <>
+                  <ShowGif gif={gif} />
+                  <AddFavorite />
+                </>
+              ) : null}
+            </>
+          }
+        />
+        <Route path="/favorites" element={<FavoritesList />} />
+      </Routes>
     </>
   )
 }
